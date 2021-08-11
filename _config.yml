@@ -26,12 +26,10 @@ author: Victor Bertret
 
 navbar-links:
   About Me: "aboutme"
-  Resources: ""
-  Author's home: "https://deanattali.com"
 
 # Image to show in the navigation bar - works best with a square image
 # Remove this parameter if you don't want an image in the navbar
-avatar: "/assets/img/avatar-icon.png"
+avatar: "img/logo3.png" #"/assets/img/avatar-icon.png"
 
 # By default, the image is cut into a circle. You can disable this behaviour by setting 'round-avatar: false'
 round-avatar: true
@@ -46,9 +44,7 @@ social-network-links:
   github: vbertret
   email: "victor.bertret@gmail.com"
 
-
-
-
+description: A website about the projects of Victor Bertret.
 
 # Build settings
 # theme: minima
