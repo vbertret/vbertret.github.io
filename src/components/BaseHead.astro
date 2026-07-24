@@ -67,3 +67,10 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+
+<!-- Analytics: GoatCounter (cookieless, privacy-friendly) -->
+<script
+	is:inline
+	data-goatcounter="https://vbertret.goatcounter.com/count"
+	async
+	src="//gc.zgo.at/count.js"></script>
