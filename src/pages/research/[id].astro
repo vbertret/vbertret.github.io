@@ -1,0 +1,130 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('research');
+	return posts.map((post) => ({
+		params: { id: post.id },
+		props: post,
+	}));
+}
+
+const post = Astro.props;
+const { Content } = await render(post);
+
+const typeMeta = {
+	thesis: { label: 'PhD Thesis', venue: post.data.journal },
+	paper: { label: 'Journal Article', venue: post.data.journal },
+	proceeding: { label: 'Conference Proceeding', venue: post.data.event },
+	talk: { label: 'Talk', venue: post.data.event },
+	poster: { label: 'Poster', venue: post.data.event },
+};
+const meta = typeMeta[post.data.type];
+
+// Build the list of external-link badges from whichever fields are set
+function linkLabel(url) {
+	if (url.includes('doi.org')) return 'DOI';
+	if (url.includes('hal.science')) return 'HAL';
+	if (url.includes('theses.fr')) return 'theses.fr';
+	return 'Link';
+}
+const links = [];
+if (post.data.doi) links.push({ href: post.data.doi, label: 'DOI' });
+if (post.data.hal) links.push({ href: post.data.hal, label: 'HAL' });
+if (post.data.theses) links.push({ href: post.data.theses, label: 'theses.fr' });
+if (post.data.code) links.push({ href: post.data.code, label: 'Code' });
+if (post.data.link) links.push({ href: post.data.link, label: linkLabel(post.data.link) });
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={post.data.title} description={post.data.description} />
+		<style>
+			.article-head { padding: 3rem 0 1.5rem; }
+			.back {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 0.8rem;
+				color: var(--muted);
+				text-decoration: none;
+				display: inline-block;
+				margin-bottom: 1.5rem;
+			}
+			.back:hover { color: var(--brand); }
+			.article-meta {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 0.6rem;
+				margin-bottom: 1rem;
+				font-size: 0.9rem;
+				color: var(--muted);
+			}
+			.title {
+				font-size: clamp(1.7rem, 4vw, 2.4rem);
+				line-height: 1.12;
+				color: var(--ink);
+				margin: 0 0 0.75rem;
+			}
+			.date {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 0.82rem;
+				color: var(--faint);
+			}
+			.badges {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.6rem;
+				margin-top: 1.25rem;
+			}
+			.badge {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 0.85rem;
+				font-weight: 500;
+				color: var(--brand-strong);
+				background: var(--brand-tint);
+				border: 1px solid transparent;
+				border-radius: 8px;
+				padding: 0.5rem 0.95rem;
+				text-decoration: none;
+				display: inline-flex;
+				align-items: center;
+				gap: 0.35rem;
+				transition: background 0.15s, color 0.15s;
+			}
+			.badge:hover { background: var(--brand); color: #fff; }
+			.divider { border: 0; border-top: 1px solid var(--line); margin: 1.75rem 0 2rem; }
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main class="wrap">
+			<article>
+				<header class="article-head">
+					<a class="back" href="/research/">← All research</a>
+					<div class="article-meta">
+						<span class={`chip ${post.data.type}`}>{meta.label}</span>
+						{meta.venue && <span>{meta.venue}</span>}
+					</div>
+					<h1 class="title">{post.data.title}</h1>
+					<p class="date">{post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</p>
+					{links.length > 0 && (
+						<div class="badges">
+							{links.map((l) => (
+								<a class="badge" href={l.href} target="_blank" rel="noopener">{l.label} ↗</a>
+							))}
+						</div>
+					)}
+					<hr class="divider" />
+				</header>
+				<div class="prose">
+					<Content />
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

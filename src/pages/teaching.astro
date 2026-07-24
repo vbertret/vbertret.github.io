@@ -1,0 +1,198 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+
+const sessions = [
+	{
+		n: 1,
+		title: 'Cadre formel & premiers modèles',
+		topics: ['Loss & risque', 'Régression vs classification', 'k-Nearest Neighbors', 'Biais / variance'],
+		pdf: '/pdfs/supervised-learning-01-foundations-knn.pdf',
+	},
+	{
+		n: 2,
+		title: 'Validation robuste & arbres de décision',
+		topics: ['Sur-/sous-apprentissage', 'Validation croisée', 'Arbres de décision (CART)', 'Modèles non-paramétriques'],
+		pdf: '/pdfs/supervised-learning-02-decision-trees.pdf',
+	},
+	{
+		n: 3,
+		title: "Méthodes d'ensembles & forêts aléatoires",
+		topics: ['Bagging', 'Random forests', 'Réduction de variance', 'Importance des variables'],
+		pdf: '/pdfs/supervised-learning-03-random-forests.pdf',
+	},
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Teaching | ${SITE_TITLE}`} description="Supervised Learning: lecture materials for the L3 Mathematics course at Université de Rennes." />
+		<style>
+			.page-head { padding: 3.5rem 0 0.5rem; }
+			.page-head h1 { font-size: clamp(2rem, 5vw, 2.8rem); margin: 0 0 0.4rem; }
+			.page-head .lead { color: var(--muted); margin: 0; max-width: 58ch; }
+
+			/* course card */
+			.course {
+				border: 1px solid var(--line);
+				border-radius: 14px;
+				padding: 1.6rem 1.6rem 0.6rem;
+				margin-top: 2.5rem;
+				background: var(--paper);
+			}
+			.course-top {
+				border-bottom: 1px solid var(--line);
+				padding-bottom: 1.1rem;
+			}
+			.course-top h2 {
+				font-size: 1.5rem;
+				margin: 0;
+			}
+			.course-top .fr {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 0.8rem;
+				color: var(--brand);
+				margin-top: 0.3rem;
+			}
+			.course-facts {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 0.78rem;
+				color: var(--muted);
+				margin-top: 0.5rem;
+			}
+			.course-desc { color: var(--ink-soft); font-size: 0.98rem; padding: 1.1rem 0 0.4rem; }
+
+			/* session rows */
+			.session {
+				display: grid;
+				grid-template-columns: 2.4rem 1fr auto;
+				gap: 0 1rem;
+				align-items: center;
+				padding: 1.15rem 0;
+				border-top: 1px solid var(--line);
+			}
+			.session:first-of-type { border-top: none; }
+			.session .num {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 1.1rem;
+				color: var(--faint);
+			}
+			.session .s-title {
+				font-family: 'Space Grotesk', sans-serif;
+				font-weight: 500;
+				font-size: 1.05rem;
+				color: var(--ink);
+				margin: 0 0 0.4rem;
+			}
+			.topics { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+			.topics span {
+				font-size: 0.72rem;
+				color: var(--muted);
+				background: var(--wash);
+				border: 1px solid var(--line);
+				padding: 0.12rem 0.5rem;
+				border-radius: 6px;
+			}
+			.slides-btn {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 0.78rem;
+				font-weight: 500;
+				color: var(--brand);
+				border: 1px solid var(--line);
+				border-radius: 8px;
+				padding: 0.45rem 0.8rem;
+				text-decoration: none;
+				white-space: nowrap;
+				transition: border-color 0.15s, background 0.15s;
+			}
+			.slides-btn:hover { border-color: var(--brand); background: var(--brand-tint); }
+
+			/* resources */
+			.resources {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+				gap: 0.9rem;
+				margin-top: 1.6rem;
+			}
+			.res {
+				border: 1px solid var(--line);
+				border-radius: 12px;
+				padding: 1.1rem 1.2rem;
+				background: var(--paper);
+			}
+			.res .kind {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 0.7rem;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--faint);
+			}
+			.res h3 { font-size: 1.05rem; margin: 0.3rem 0 0.6rem; color: var(--ink); }
+			.res p { font-size: 0.88rem; color: var(--muted); margin: 0 0 0.9rem; }
+			.res a.btn { font-size: 0.85rem; padding: 0.5rem 0.9rem; }
+			.res .soon {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 0.78rem;
+				color: var(--faint);
+			}
+
+			@media (max-width: 560px) {
+				.session { grid-template-columns: 2rem 1fr; }
+				.session .slides-btn { grid-column: 2; justify-self: start; margin-top: 0.6rem; }
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main class="wrap">
+			<header class="page-head">
+				<p class="eyebrow">Teaching</p>
+				<h1>Teaching</h1>
+				<p class="lead">Materials I designed and taught, in French.</p>
+			</header>
+
+			<section class="course">
+				<div class="course-top">
+					<h2>Supervised Learning</h2>
+					<div class="fr">Apprentissage Supervisé · part of « Introduction à la Statistique des Données »</div>
+					<div class="course-facts">L3 Mathematics · Université de Rennes · taught 2023–2026</div>
+				</div>
+
+				<p class="course-desc">
+					The supervised-learning part of the L3 statistics course (ISD). It starts from the formal
+					setup (loss, risk, bias and variance), with k-NN as the running example, then covers
+					non-parametric models: decision trees and random forests.
+				</p>
+
+				{sessions.map((s) => (
+					<div class="session">
+						<span class="num">{String(s.n).padStart(2, '0')}</span>
+						<div>
+							<h3 class="s-title">{s.title}</h3>
+							<div class="topics">
+								{s.topics.map((t) => <span>{t}</span>)}
+							</div>
+						</div>
+						<a class="slides-btn" href={s.pdf} target="_blank">Slides ↗</a>
+					</div>
+				))}
+			</section>
+
+			<div class="resources">
+				<div class="res">
+					<span class="kind">Practical</span>
+					<h3>Lab session (TP)</h3>
+					<p>Hands-on Python lab over two sessions: exploratory analysis, k-NN, decision trees and random forests.</p>
+					<a class="btn btn-ghost" href="/pdfs/supervised-learning-tp.pdf" target="_blank">View lab (PDF) ↗</a>
+				</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

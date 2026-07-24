@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE } from '../../consts';
+
+const posts = (await getCollection('research')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const typeLabel = {
+	paper: 'Journal',
+	proceeding: 'Proceeding',
+	talk: 'Talk',
+	poster: 'Poster',
+	thesis: 'Thesis',
+};
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Research | ${SITE_TITLE}`} description="Publications, conference proceedings and talks by Victor Bertret." />
+		<style>
+			.page-head { padding: 3.5rem 0 1.5rem; }
+			.page-head h1 { font-size: clamp(2rem, 5vw, 2.8rem); margin: 0 0 0.5rem; }
+			.page-head p { color: var(--muted); margin: 0; max-width: 56ch; }
+			.list { padding-bottom: 1rem; }
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main class="wrap">
+			<header class="page-head">
+				<p class="eyebrow">Publications · Talks · Thesis</p>
+				<h1>Research</h1>
+				<p>Peer-reviewed articles, conference proceedings and talks at the intersection of applied mathematics, machine learning and stochastic control.</p>
+			</header>
+
+			<div class="list">
+				{posts.map((post) => (
+					<a class="pub" href={`/research/${post.id}/`}>
+						<span class="year">{post.data.pubDate.getFullYear()}</span>
+						<div class="body">
+							<h3 class="title">{post.data.title}</h3>
+							<div class="meta">
+								<span class={`chip ${post.data.type}`}>{typeLabel[post.data.type]}</span>
+								<span>{post.data.event || post.data.journal}</span>
+								<span class="arrow">→</span>
+							</div>
+						</div>
+					</a>
+				))}
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

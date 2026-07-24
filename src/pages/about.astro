@@ -1,63 +1,187 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`About | ${SITE_TITLE}`} description="AI & Control Engineer at Purecontrol and PhD in Applied Mathematics, working on machine learning and stochastic control for industrial systems." />
+		<style>
+			.page-head { padding: 3.5rem 0 0.5rem; }
+			.page-head h1 { font-size: clamp(2rem, 5vw, 2.8rem); margin: 0 0 0.4rem; }
+			.page-head .lead { color: var(--muted); font-size: 1.1rem; margin: 0; }
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+			h2.sec { font-size: 1.4rem; margin: 2.8rem 0 0.9rem; color: var(--ink); }
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+			.skills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+			.skills span {
+				font-family: 'IBM Plex Mono', monospace;
+				font-size: 0.8rem;
+				background: var(--wash);
+				border: 1px solid var(--line);
+				color: var(--ink-soft);
+				padding: 0.3rem 0.7rem;
+				border-radius: 999px;
+			}
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+			.timeline { list-style: none; padding: 0; margin: 0; }
+			.timeline li {
+				padding: 0 0 1rem 1.2rem;
+				margin-bottom: 1rem;
+				border-left: 2px solid var(--line);
+				position: relative;
+			}
+			.timeline li::before {
+				content: '';
+				position: absolute; left: -5px; top: 0.55rem;
+				width: 8px; height: 8px; border-radius: 50%;
+				background: var(--brand);
+			}
+			.timeline small { color: var(--faint); font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; }
+			.timeline a { border-bottom: 1px solid var(--brand-tint); }
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+			.links { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.5rem; }
+			.links a { flex: 1 1 138px; text-decoration: none; color: inherit; }
+			.links .card {
+				border: 1px solid var(--line);
+				background: var(--paper);
+				padding: 1rem 1.1rem;
+				border-radius: 10px;
+				transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+			}
+			.links .card:hover { transform: translateY(-2px); border-color: var(--brand); box-shadow: var(--shadow); }
+			.links .card strong { color: var(--ink); font-family: 'Space Grotesk', sans-serif; }
+			.links .card span { font-size: 0.82rem; color: var(--muted); }
+
+			.closing { margin-top: 2.5rem; font-style: italic; color: var(--faint); }
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main class="wrap">
+			<header class="page-head">
+				<p class="eyebrow">About</p>
+				<h1>Victor Bertret</h1>
+				<p class="lead">AI &amp; Control Engineer at Purecontrol · PhD in Applied Mathematics</p>
+			</header>
+
+			<div class="prose">
+				<h2 class="sec">Who I am</h2>
+				<p>
+					I am an <strong>AI &amp; Control Engineer</strong> at <a href="https://www.purecontrol.com" target="_blank">Purecontrol</a>,
+					where I design machine learning and stochastic control algorithms to optimize the operation of real industrial systems,
+					cutting energy consumption while respecting strict operational and environmental constraints.
+				</p>
+				<p>
+					I hold a <strong>PhD in Applied Mathematics</strong> from the <strong>Université de Rennes</strong>, defended in December 2025.
+					My work sits at the intersection of <strong>physical modeling</strong>, <strong>statistics / data assimilation</strong>, and
+					<strong>optimal control</strong>, with a strong focus on bringing these methods all the way to industrial deployment.
+				</p>
+				<p>
+					My current work is mainly in the water sector, and industry more broadly: the estimation and control
+					problems these systems raise, recent optimization methods, and how to formulate those problems for
+					real, non-stationary installations that are hard to characterize.
+				</p>
+
+				<div class="callout">
+					<h3>Main research interests</h3>
+					<ul>
+						<li><strong>Stochastic control:</strong> robust decision-making under uncertainty (stochastic dynamic programming, MPC).</li>
+						<li><strong>Data assimilation:</strong> real-time state estimation for non-linear, partially observed systems (Kalman &amp; particle filters).</li>
+						<li><strong>Industrial optimization:</strong> energy efficiency in water and biogas processes (MILP, optimal control).</li>
+						<li><strong>Hybrid modeling:</strong> combining physical models (ODEs / ASM1) with data-driven and machine learning components.</li>
+					</ul>
+				</div>
+
+				<h2 class="sec">PhD in a nutshell</h2>
+				<p>
+					My thesis, <em>Machine Learning and Stochastic Control for the Optimized Automatic Piloting of Industrial Systems</em>,
+					was carried out under a CIFRE fellowship between <strong>Purecontrol</strong>, the <strong>IRMAR</strong> mathematics laboratory,
+					and the <strong>IETR / ENS Rennes</strong>. It develops a unified methodology to optimize the aeration of wastewater treatment plants
+					under discharge constraints and strong uncertainty, combining the identification of stochastic state-space models with stochastic
+					optimal control.
+				</p>
+				<p style="font-size: 0.95rem; color: var(--muted);">
+					Supervised by <strong>Valérie Monbet</strong> (director, Université de Rennes), <strong>Roman Le Goff Latimier</strong> (ENS Rennes)
+					and <strong>Gautier Avril</strong> (Purecontrol). →
+					<a href="/research/phd-thesis-2025/">Read more</a>
+				</p>
+
+				<h2 class="sec">Selected publications</h2>
+				<ul class="timeline">
+					<li>
+						<strong>Data assimilation for prediction of ammonium in WWTP: from physical to data driven models</strong><br/>
+						<small>Water Research, Vol. 282 (2025), journal article</small> · <a href="/research/water-research-2025-ammonium/">details</a>
+					</li>
+					<li>
+						<strong>Predictive control for sensorless phosphorus removal</strong><br/>
+						<small>Congrès Eau &amp; IA 2026, Grenoble, with Veolia</small> · <a href="/research/eia26-dephosphatation-control/">details</a>
+					</li>
+					<li>
+						<strong>A stochastic EM algorithm for the estimation of WWTP ammonium concentration</strong><br/>
+						<small>European Control Conference (ECC 2024), Stockholm</small> · <a href="/research/ecc-ammonium-estimation/">details</a>
+					</li>
+				</ul>
+				<p><a href="/research/">See all research &amp; talks →</a></p>
+
+				<h2 class="sec">Supervision</h2>
+				<ul class="timeline">
+					<li>
+						<strong>Farah Dogui</strong><br/>
+						Predictive modelling of biogas production in anaerobic digestion: forecasting output from the feedstock and operating conditions to optimise plant yield.<br/>
+						<small>Engineering internship (M1, IMT Nord Europe), Purecontrol, 2026</small>
+					</li>
+					<li>
+						<strong>Mathias Lommel</strong><br/>
+						Data-driven strategies to speed up a mixed-integer linear programming (MILP) solver.<br/>
+						<small>Final-year engineering project (PFE, INSA Rennes), Purecontrol, 2025</small>
+					</li>
+					<li>
+						<strong>Nay Klaimi</strong><br/>
+						Data-driven dynamic modelling, applied to a wastewater treatment plant.<br/>
+						<small>Master's research internship (PFE, INSA Rennes), Purecontrol, 2024</small>
+					</li>
+				</ul>
+
+				<h2 class="sec">Technical toolbox</h2>
+				<div class="skills">
+					<span>Julia</span>
+					<span>Python</span>
+					<span>Stochastic control</span>
+					<span>Model Predictive Control</span>
+					<span>Data assimilation</span>
+					<span>Kalman / particle filters</span>
+					<span>MILP (HiGHS, SCIP)</span>
+					<span>State-space modeling</span>
+					<span>Machine learning</span>
+				</div>
+
+				<h2 class="sec">Connect</h2>
+			</div>
+
+			<div class="links">
+				<a class="email-link" data-user="victor.bertret" data-domain="purecontrol.com" href="#">
+					<div class="card"><strong>Email</strong><br/><span class="email-addr">victor.bertret [at] purecontrol.com</span></div>
+				</a>
+				<a href="https://www.linkedin.com/in/victor-bertret/" target="_blank">
+					<div class="card"><strong>LinkedIn</strong><br/><span>Professional profile</span></div>
+				</a>
+				<a href="https://github.com/vbertret" target="_blank">
+					<div class="card"><strong>GitHub</strong><br/><span>Code &amp; notebooks</span></div>
+				</a>
+				<a href="https://scholar.google.com/citations?user=1yyIR1IAAAAJ&hl=fr" target="_blank">
+					<div class="card"><strong>Google Scholar</strong><br/><span>Citations &amp; publications</span></div>
+				</a>
+				<a href="https://cv.hal.science/victor-bertret" target="_blank">
+					<div class="card"><strong>HAL</strong><br/><span>Academic publications</span></div>
+				</a>
+			</div>
+
+			<p class="closing">Based in Rennes, France. Happy to talk about industrial innovation, applied mathematics, or environmental challenges: <a class="email-link" data-user="victor.bertret" data-domain="purecontrol.com" href="#"><span class="email-addr">victor.bertret [at] purecontrol.com</span></a>.</p>
+		</main>
+		<Footer />
+	</body>
+</html>

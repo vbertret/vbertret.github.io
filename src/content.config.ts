@@ -1,20 +1,22 @@
-import { defineCollection } from 'astro:content';
+import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
-import { z } from 'astro/zod';
 
-const blog = defineCollection({
-	// Load Markdown and MDX files in the `src/content/blog/` directory.
-	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
-	// Type-check frontmatter using a schema
-	schema: ({ image }) =>
-		z.object({
-			title: z.string(),
-			description: z.string(),
-			// Transform string to Date object
-			pubDate: z.coerce.date(),
-			updatedDate: z.coerce.date().optional(),
-			heroImage: z.optional(image()),
-		}),
+const research = defineCollection({
+    loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/research' }),
+    schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        pubDate: z.coerce.date(),
+        type: z.enum(['paper', 'proceeding', 'talk', 'poster', 'thesis']),
+        event: z.string().optional(),     // conferences / talks
+        journal: z.string().optional(),   // journal papers
+        // External links (any subset; each rendered as a badge on the article page)
+        doi: z.string().optional(),
+        hal: z.string().optional(),
+        theses: z.string().optional(),    // theses.fr record
+        code: z.string().optional(),      // source code repository
+        link: z.string().optional(),      // generic fallback link
+    }),
 });
 
-export const collections = { blog };
+export const collections = { research };
