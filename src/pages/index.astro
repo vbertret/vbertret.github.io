@@ -21,12 +21,31 @@ const typeLabel = {
 	poster: 'Poster',
 	thesis: 'Thesis',
 };
+
+const personLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	name: 'Victor Bertret',
+	url: 'https://vbertret.github.io',
+	jobTitle: 'AI & Control Engineer',
+	description: 'PhD in Applied Mathematics. Machine learning and stochastic control for real industrial systems.',
+	alumniOf: { '@type': 'CollegeOrUniversity', name: 'Université de Rennes' },
+	worksFor: { '@type': 'Organization', name: 'Purecontrol', url: 'https://www.purecontrol.com' },
+	sameAs: [
+		'https://github.com/vbertret',
+		'https://www.linkedin.com/in/victor-bertret/',
+		'https://x.com/VictorBertret',
+		'https://scholar.google.com/citations?user=1yyIR1IAAAAJ&hl=fr',
+		'https://cv.hal.science/victor-bertret',
+	],
+};
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+			<script type="application/ld+json" set:html={JSON.stringify(personLd)} />
 		<style>
 			/* ---------- HERO ---------- */
 			.hero { padding: 3.5rem 0 0; }
